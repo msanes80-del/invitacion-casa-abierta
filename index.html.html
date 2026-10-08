@@ -1,0 +1,289 @@
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f172a;
+            color: #334155;
+            overflow-x: hidden;
+            height: 100vh;
+        }
+
+        /* Pantalla de los Telones */
+        #curtain-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            z-index: 9999;
+            overflow: hidden;
+            cursor: pointer;
+            transition: visibility 1s;
+        }
+
+        .curtain {
+            position: relative;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, #0b192c 0%, #1e3e62 100%);
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.8);
+            transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .curtain.left {
+            transform-origin: left;
+            border-right: 3px solid #d4af37;
+        }
+
+        .curtain.right {
+            transform-origin: right;
+            border-left: 3px solid #d4af37;
+        }
+
+        /* Efecto de apertura */
+        #curtain-container.open .curtain.left {
+            transform: translateX(-100%);
+        }
+
+        #curtain-container.open .curtain.right {
+            transform: translateX(100%);
+        }
+
+        /* Texto y botón en el telón cerrado */
+        .curtain-content {
+            position: absolute;
+            text-align: center;
+            color: #ffffff;
+            padding: 20px;
+            z-index: 10;
+            transition: opacity 0.5s ease;
+        }
+
+        .curtain-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #f8fafc;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .curtain-content p {
+            font-size: 1.1rem;
+            color: #cbd5e1;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+
+        .open-btn {
+            background: #d4af37;
+            color: #0b192c;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .open-btn:hover {
+            background: #e5c158;
+            transform: scale(1.05);
+        }
+
+        /* Contenido Principal de la Invitación */
+        .main-content {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            padding: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.8s;
+            position: relative;
+        }
+
+        .main-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+        }
+
+        header h2 {
+            font-family: 'Playfair Display', serif;
+            color: #0b192c;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        header h3 {
+            color: #1e3e62;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        header p {
+            color: #64748b;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .event-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .card-detail {
+            background: #f8fafc;
+            border-left: 4px solid #1e3e62;
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .card-detail h4 {
+            color: #0b192c;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .card-detail p {
+            color: #475569;
+            font-size: 0.95rem;
+        }
+
+        .stations-section {
+            margin-bottom: 30px;
+        }
+
+        .stations-section h4 {
+            font-family: 'Playfair Display', serif;
+            color: #0b192c;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .stations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .station-item {
+            background: #f1f5f9;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1e293b;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        footer {
+            text-align: center;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 20px;
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            .curtain-content h1 { font-size: 1.8rem; }
+            .main-content { margin: 15px; padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenedor de los Telones -->
+    <div id="curtain-container" onclick="openCurtain()">
+        <div class="curtain left"></div>
+        <div class="curtain right"></div>
+        <div class="curtain-content" id="curtainText">
+            <p>FACULTAD DE CIENCIAS DE LA SALUD</p>
+            <h1>Pasión por la Ciencia,<br>Compromiso con la Vida</h1>
+            <p style="font-size: 0.9rem; margin-top: 10px; color: #d4af37;">Haz clic para abrir la invitación</p>
+            <button class="open-btn">Abrir Invitación</button>
+        </div>
+    </div>
+
+    <!-- Contenido de la Invitación -->
+    <div class="main-content" id="mainContent">
+        <header>
+            <p>Universidad Técnica de Ambato</p>
+            <h2>Carrera de Laboratorio Clínico</h2>
+            <h3>Casa Abierta 2026</h3>
+        </header>
+
+        <div class="event-details">
+            <div class="card-detail">
+                <h4>📅 Fecha</h4>
+                <p>Viernes 16 de octubre de 2026</p>
+            </div>
+            <div class="card-detail">
+                <h4>⏰ Hora</h4>
+                <p>08h30 – 12h30</p>
+            </div>
+            <div class="card-detail">
+                <h4>📍 Lugar</h4>
+                <p>Laboratorios de Docencia – FCS (Campus Ingahurco)</p>
+            </div>
+        </div>
+
+        <div class="stations-section">
+            <h4>🔬 7 Estaciones Científicas Interactivas</h4>
+            <div class="stations-grid">
+                <div class="station-item">I. Técnicas Básicas y Bioseguridad</div>
+                <div class="station-item">II. Bioquímica General</div>
+                <div class="station-item">III. Hematología</div>
+                <div class="station-item">IV. Bacteriología Médica</div>
+                <div class="station-item">V. Urianálisis y Líquidos Biológicos</div>
+                <div class="station-item">VI. Control de Calidad</div>
+                <div class="station-item">VII. Correlación Clínica</div>
+            </div>
+        </div>
+
+        <footer>
+            <p>¡Te esperamos para vivir una experiencia de aprendizaje activo e integración científica!</p>
+        </footer>
+    </div>
+
+    <script>
+        function openCurtain() {
+            const container = document.getElementById('curtain-container');
+            const content = document.getElementById('mainContent');
+            const curtainText = document.getElementById('curtainText');
+
+            // Ocultar texto del telón de inmediato
+            curtainText.style.opacity = '0';
+
+            // Activar animación de apertura de telones
+            container.classList.add('open');
+
+            // Mostrar el contenido principal de la invitación
+            content.classList.add('visible');
+
+            // Remover el contenedor del DOM después de la animación para permitir clics
+            setTimeout(() => {
+                container.style.visibility = 'hidden';
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
