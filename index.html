@@ -36,33 +36,68 @@
             min-height: 100vh;
         }
 
-        /* PANTALLA DE BIENVENIDA CON PORTADA.JPG */
-        .curtain-screen {
+        /* CONTENEDOR DEL TELÓN */
+        .curtain-wrapper {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
             z-index: 1000;
-            background-color: var(--bg-dark);
-            background-image: url('portada.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease 0.4s;
+            pointer-events: auto;
         }
 
-        .curtain-screen.opened {
-            transform: translateY(-100%);
-            opacity: 0;
+        .curtain-wrapper.opened {
             pointer-events: none;
         }
 
-        /* CONTENIDO DE TEXTOS Y BOTÓN CENTRADOS EN EL ESPACIO LIBRE */
+        /* HOJA IZQUIERDA DEL TELÓN */
+        .curtain-panel-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50vw;
+            height: 100vh;
+            background-color: var(--bg-dark);
+            background-image: url('portada.jpg');
+            background-size: 100vw 100vh;
+            background-position: left center;
+            background-repeat: no-repeat;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 1;
+        }
+
+        /* HOJA DERECHA DEL TELÓN */
+        .curtain-panel-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50vw;
+            height: 100vh;
+            background-color: var(--bg-dark);
+            background-image: url('portada.jpg');
+            background-size: 100vw 100vh;
+            background-position: right center;
+            background-repeat: no-repeat;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 1;
+        }
+
+        /* MOVIMIENTO HACIA AFUERA AL ABRIR */
+        .curtain-wrapper.opened .curtain-panel-left {
+            transform: translateX(-100%);
+        }
+
+        .curtain-wrapper.opened .curtain-panel-right {
+            transform: translateX(100%);
+        }
+
+        /* CONTENIDO Y TEXTOS CENTRADOS EN LA PORTADA */
         .cover-content {
+            position: relative;
             z-index: 10;
             width: 90%;
             max-width: 800px;
@@ -72,9 +107,15 @@
             flex-direction: column;
             align-items: center;
             padding: 20px;
+            transition: opacity 0.5s ease;
         }
 
-        /* ESCUDO NÍTIDO SIN FONDO BLANCO */
+        .curtain-wrapper.opened .cover-content {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* ESCUDO NÍTIDO */
         .cover-shield {
             width: 85px;
             height: auto;
@@ -182,13 +223,13 @@
             margin: 0 auto;
             padding: 60px 24px;
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 1s ease 0.5s;
+            transform: scale(0.95);
+            transition: all 1s ease 0.4s;
         }
 
         .main-invitation.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: scale(1);
         }
 
         header {
@@ -372,8 +413,11 @@
 </head>
 <body>
 
-    <!-- PANTALLA DE BIENVENIDA CON PORTADA.JPG -->
-    <div class="curtain-screen" id="curtainScreen">
+    <!-- PANTALLA DE BIENVENIDA CON TELÓN CENTRAL (PORTADA.JPG) -->
+    <div class="curtain-wrapper" id="curtainScreen">
+        <div class="curtain-panel-left"></div>
+        <div class="curtain-panel-right"></div>
+        
         <div class="cover-content">
             <img src="image_2.jpg" alt="Escudo" class="cover-shield">
             <p class="cover-univ">Universidad Técnica de Ambato</p>
