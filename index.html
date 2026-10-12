@@ -36,7 +36,7 @@
             min-height: 100vh;
         }
 
-        /* PANTALLA DE BIENVENIDA CON LA NUEVA IMAGEN PORTADA.PNG */
+        /* PANTALLA DE BIENVENIDA CON LA IMAGEN PORTADA.PNG FIJA Y NÍTIDA */
         .curtain-screen {
             position: fixed;
             top: 0;
@@ -74,11 +74,13 @@
             padding: 20px;
         }
 
+        /* ESCUDO CORREGIDO PARA QUITAR EL FONDO BLANCO */
         .cover-shield {
-            width: 70px;
+            width: 85px;
             height: auto;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             mix-blend-mode: screen;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
             opacity: 0.95;
         }
 
