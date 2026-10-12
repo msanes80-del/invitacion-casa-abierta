@@ -36,7 +36,7 @@
             min-height: 100vh;
         }
 
-        /* PANTALLA DE BIENVENIDA CON TELÓN DESLIZANTE DESDE EL CENTRO */
+        /* PANTALLA DE BIENVENIDA CON TU PORTADA FIJA Y TELÓN QUE SE ABRE */
         .curtain-screen {
             position: fixed;
             top: 0;
@@ -44,68 +44,57 @@
             width: 100vw;
             height: 100vh;
             z-index: 1000;
+            background-color: var(--bg-dark);
+            background-image: url('portada.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             pointer-events: auto;
-            transition: opacity 0.8s ease 1.6s;
         }
 
-        .curtain-screen.opened {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* PANELES DE APERTURA (IZQUIERDA Y DERECHA) */
-        .curtain-half {
+        /* CORTINAS DEL TELÓN (SE ABREN DESDE EL CENTRO HACIA AFUERA) */
+        .shutter {
             position: absolute;
             top: 0;
             width: 50vw;
             height: 100vh;
-            background-color: var(--bg-dark);
-            overflow: hidden;
-            transition: transform 2s cubic-bezier(0.77, 0, 0.175, 1);
-            z-index: 1;
+            background: linear-gradient(135deg, #040814 0%, #0a1530 100%);
+            border-right: 1px solid rgba(197, 160, 89, 0.2);
+            transition: transform 2.2s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 2;
         }
 
-        .curtain-left {
+        .shutter-left {
             left: 0;
             transform-origin: left;
         }
 
-        .curtain-right {
+        .shutter-right {
             right: 0;
             transform-origin: right;
+            border-right: none;
+            border-left: 1px solid rgba(197, 160, 89, 0.2);
         }
 
-        .curtain-screen.opened .curtain-left {
+        .curtain-screen.opened .shutter-left {
             transform: translateX(-100%);
         }
 
-        .curtain-screen.opened .curtain-right {
+        .curtain-screen.opened .shutter-right {
             transform: translateX(100%);
         }
 
-        /* IMAGEN DE FONDO ENTERA DENTRO DE LOS PANELES PARA QUE NO SE PIERDA */
-        .curtain-half img.bg-poster {
-            position: absolute;
-            top: 0;
-            height: 100vh;
-            width: 100vw;
-            object-fit: cover;
+        .curtain-screen.opened {
+            pointer-events: none;
+            transition: opacity 0.8s ease 1.6s;
+            opacity: 0;
         }
 
-        .curtain-left img.bg-poster {
-            left: 0;
-        }
-
-        .curtain-right img.bg-poster {
-            right: 0;
-            left: auto;
-        }
-
-        /* CONTENIDO Y TEXTOS CENTRADOS */
+        /* CONTENIDO Y TEXTOS CENTRADOS EN LA PORTADA */
         .cover-content {
             position: fixed;
             top: 50%;
@@ -128,7 +117,7 @@
             pointer-events: none;
         }
 
-        /* ESCUDO NÍTIDO SIN CUADRO BLANCO */
+        /* ESCUDO NÍTIDO Y ELEGANTE */
         .cover-shield {
             max-width: 90px;
             height: auto;
@@ -425,18 +414,13 @@
 </head>
 <body>
 
-    <!-- TELÓN CON APERTURA CENTRAL Y FONDO PORTADA.PNG PERFECTO -->
+    <!-- PANTALLA DE BIENVENIDA -->
     <div class="curtain-screen" id="curtainScreen">
-        <!-- Panel Izquierdo con la mitad izquierda de la imagen -->
-        <div class="curtain-half curtain-left">
-            <img src="portada.png" alt="Fondo Izquierda" class="bg-poster">
-        </div>
-        <!-- Panel Derecho con la mitad derecha de la imagen -->
-        <div class="curtain-half curtain-right">
-            <img src="portada.png" alt="Fondo Derecha" class="bg-poster">
-        </div>
+        <!-- Cortinas que se abren desde el centro hacia afuera -->
+        <div class="shutter shutter-left"></div>
+        <div class="shutter shutter-right"></div>
         
-        <!-- Contenido y textos encima -->
+        <!-- Contenido y textos encima de tu portada -->
         <div class="cover-content">
             <img src="image_2.jpg" alt="Escudo UTA" class="cover-shield">
             <p class="cover-univ">Universidad Técnica de Ambato</p>
