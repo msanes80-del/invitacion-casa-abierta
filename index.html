@@ -56,9 +56,9 @@
             height: 100vh;
             background-color: var(--bg-dark);
             background-image: url('portada.png');
+            /* Forzamos que la imagen cubra exactamente 100vw de ancho para que coincida perfecta */
             background-size: 100vw 100vh;
             background-repeat: no-repeat;
-            /* Transición pausada y elegante de 2.2 segundos */
             transition: transform 2.2s cubic-bezier(0.77, 0, 0.175, 1);
             z-index: 1;
         }
@@ -109,13 +109,13 @@
             pointer-events: none;
         }
 
-        /* CORRECCIÓN DEL ESCUDO SIN FONDO BLANCO CUADRADO */
+        /* ESCUDO NÍTIDO SIN FONDO BLANCO */
         .cover-shield {
-            max-width: 120px;
+            max-width: 110px;
             height: auto;
             margin-bottom: 12px;
             mix-blend-mode: multiply;
-            filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+            filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.6));
             opacity: 0.95;
         }
 
@@ -175,7 +175,7 @@
             line-height: 1.25;
             margin-bottom: 32px;
             color: #ffffff;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
         }
 
         .cover-title span {
@@ -345,7 +345,7 @@
             border-left-color: var(--accent-gold);
         }
 
-        /* SECCIÓN DE CONFIRMACIÓN DE ASISTENCIA PROTOCOLARIA */
+        /* SECCIÓN DE CONFIRMACIÓN DE ASISTENCIA */
         .rsvp-section {
             text-align: center;
             background: #f8fafc;
@@ -408,7 +408,7 @@
 </head>
 <body>
 
-    <!-- TELÓN DE APERTURA DESDE EL CENTRO HACIA AFUERA -->
+    <!-- TELÓN CON TU NUEVA PORTADA Y APERTURA SUAVE -->
     <div class="curtain-screen" id="curtainScreen">
         <div class="curtain-panel curtain-left"></div>
         <div class="curtain-panel curtain-right"></div>
