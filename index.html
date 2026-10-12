@@ -36,27 +36,48 @@
             min-height: 100vh;
         }
 
-        /* PORTADA CON EFECTO TELÓN */
-        .cover-screen {
+        /* EFECTO TELÓN REAL (DIVIDIDO EN DOS CORTINAS LATERALES) */
+        .curtain-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: linear-gradient(135deg, #0b1329 0%, #1a233d 100%);
             z-index: 1000;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: #ffffff;
-            padding: 20px;
-            transition: transform 0.9s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.7s ease;
+            pointer-events: auto;
+            transition: opacity 0.5s ease 0.8s;
         }
 
-        .cover-screen.opened {
-            transform: translateY(-100%);
+        .curtain-panel {
+            position: absolute;
+            top: 0;
+            width: 50vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #0b1329 0%, #1a233d 100%);
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 1;
+        }
+
+        .curtain-left {
+            left: 0;
+            transform-origin: left;
+        }
+
+        .curtain-right {
+            right: 0;
+            transform-origin: right;
+        }
+
+        .curtain-screen.opened .curtain-left {
+            transform: translateX(-100%);
+        }
+
+        .curtain-screen.opened .curtain-right {
+            transform: translateX(100%);
+        }
+
+        .curtain-screen.opened {
             opacity: 0;
             pointer-events: none;
         }
@@ -69,12 +90,25 @@
             height: 100%;
             pointer-events: none;
             opacity: 0.35;
+            z-index: 2;
         }
 
         .cover-content {
-            position: relative;
-            z-index: 2;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
             max-width: 650px;
+            width: 90%;
+            text-align: center;
+            color: #ffffff;
+            transition: opacity 0.4s ease;
+        }
+
+        .curtain-screen.opened .cover-content {
+            opacity: 0;
+            pointer-events: none;
         }
 
         .faculty-tag {
@@ -110,7 +144,7 @@
             transition: all 0.3s ease;
             box-shadow: 0 0 15px rgba(197, 160, 89, 0.2);
             position: relative;
-            z-index: 10;
+            z-index: 20;
         }
 
         .btn-open:hover {
@@ -145,11 +179,14 @@
             align-items: center;
         }
 
+        /* CORRECCIÓN DE LA IMAGEN: Mezcla el fondo blanco con el fondo de la página */
         .uta-logo {
-            max-width: 150px;
+            max-width: 155px;
             height: auto;
             margin-bottom: 25px;
             display: block;
+            mix-blend-mode: multiply;
+            filter: contrast(1.08);
         }
 
         .header-subtitle {
@@ -223,6 +260,7 @@
             display: flex;
             flex-direction: column;
             gap: 12px;
+            margin-bottom: 45px;
         }
 
         .station-item {
@@ -245,13 +283,62 @@
             border-left-color: var(--accent-gold);
         }
 
-        footer {
-            margin-top: 60px;
+        /* SECCIÓN DE CONFIRMACIÓN DE ASISTENCIA PROTOCOLARIA */
+        .rsvp-section {
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid #e2e8f0;
+            background: var(--bg-card);
+            padding: 35px 24px;
+            border-radius: 14px;
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid #edf2f7;
+            margin-top: 30px;
+        }
+
+        .rsvp-section h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .rsvp-section p {
             color: var(--text-muted);
             font-size: 0.95rem;
+            margin-bottom: 22px;
+            line-height: 1.5;
+        }
+
+        .btn-rsvp {
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 15px 36px;
+            font-size: 0.88rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 128, 128, 0.25);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-rsvp:hover {
+            background: #006666;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 128, 128, 0.35);
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid #e2e8f0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
             line-height: 1.6;
         }
 
@@ -259,28 +346,28 @@
             .cover-title { font-size: 2.1rem; }
             .details-grid { grid-template-columns: 1fr; }
             .header-title { font-size: 1.9rem; }
-            .uta-logo { max-width: 120px; }
+            .uta-logo { max-width: 130px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- PORTADA DE APERTURA -->
-    <div class="cover-screen" id="coverScreen">
+    <!-- PANTALLA CON EFECTO TELÓN -->
+    <div class="curtain-screen" id="curtainScreen">
+        <div class="curtain-panel curtain-left"></div>
+        <div class="curtain-panel curtain-right"></div>
         <canvas id="dnaCanvas"></canvas>
         <div class="cover-content">
             <p class="faculty-tag">FACULTAD DE CIENCIAS DE LA SALUD</p>
             <h1 class="cover-title">Pasión por la Ciencia,<br>Compromiso con la Vida</h1>
-            <button class="btn-open" onclick="openInvitation()">Haz clic para abrir la invitación</button>
+            <button class="btn-open" onclick="openInvitation()">Abrir Invitación</button>
         </div>
     </div>
 
     <!-- INVITACIÓN PRINCIPAL -->
     <div class="main-invitation" id="mainInvitation">
         <header>
-            <!-- CORREGIDO: Apunta exactamente a image_2.jpg -->
             <img src="image_2.jpg" alt="Escudo UTA" class="uta-logo">
-            
             <p class="header-subtitle">Universidad Técnica de Ambato</p>
             <h2 class="header-title">Carrera de Laboratorio Clínico</h2>
             <h3 class="header-event">Casa Abierta 2026</h3>
@@ -314,6 +401,13 @@
             </div>
         </div>
 
+        <!-- SECCIÓN DE CONFIRMACIÓN DE ASISTENCIA -->
+        <div class="rsvp-section">
+            <h4>Agradecemos su gentil confirmación</h4>
+            <p>Para brindarle una mejor atención y registro en nuestras estaciones científicas, le invitamos a registrar su asistencia.</p>
+            <a href="https://forms.gle/" target="_blank" class="btn-rsvp">Agradecemos su gentil confirmación</a>
+        </div>
+
         <footer>
             <p>¡Te esperamos para vivir una experiencia de aprendizaje activo e integración científica!</p>
         </footer>
@@ -321,7 +415,7 @@
 
     <script>
         function openInvitation() {
-            document.getElementById('coverScreen').classList.add('opened');
+            document.getElementById('curtainScreen').classList.add('opened');
             document.getElementById('mainInvitation').classList.add('visible');
         }
 
