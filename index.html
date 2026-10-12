@@ -36,7 +36,7 @@
             min-height: 100vh;
         }
 
-        /* EFECTO TELÓN REAL (DIVIDIDO EN DOS CORTINAS LATERALES) */
+        /* EFECTO TELÓN ELEGANTE Y SUAVE */
         .curtain-screen {
             position: fixed;
             top: 0;
@@ -46,7 +46,7 @@
             z-index: 1000;
             display: flex;
             pointer-events: auto;
-            transition: opacity 0.5s ease 0.8s;
+            transition: opacity 0.8s ease 1.2s;
         }
 
         .curtain-panel {
@@ -55,7 +55,8 @@
             width: 50vw;
             height: 100vh;
             background: linear-gradient(135deg, #0b1329 0%, #1a233d 100%);
-            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+            /* Transición más lenta y fluida (1.8s) estilo telón real */
+            transition: transform 1.8s cubic-bezier(0.65, 0, 0.35, 1);
             z-index: 1;
         }
 
@@ -103,7 +104,7 @@
             width: 90%;
             text-align: center;
             color: #ffffff;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.6s ease;
         }
 
         .curtain-screen.opened .cover-content {
@@ -161,7 +162,7 @@
             padding: 60px 24px;
             opacity: 0;
             transform: translateY(30px);
-            transition: all 0.8s ease 0.3s;
+            transition: all 1s ease 0.5s;
         }
 
         .main-invitation.visible {
@@ -179,7 +180,6 @@
             align-items: center;
         }
 
-        /* CORRECCIÓN DE LA IMAGEN: Mezcla el fondo blanco con el fondo de la página */
         .uta-logo {
             max-width: 155px;
             height: auto;
@@ -294,16 +294,9 @@
             margin-top: 30px;
         }
 
-        .rsvp-section h4 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            color: var(--text-main);
-            margin-bottom: 10px;
-        }
-
         .rsvp-section p {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.98rem;
             margin-bottom: 22px;
             line-height: 1.5;
         }
@@ -312,7 +305,7 @@
             background: var(--primary);
             color: #ffffff;
             border: none;
-            padding: 15px 36px;
+            padding: 16px 36px;
             font-size: 0.88rem;
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
@@ -352,7 +345,7 @@
 </head>
 <body>
 
-    <!-- PANTALLA CON EFECTO TELÓN -->
+    <!-- PANTALLA CON EFECTO TELÓN ELEGANTE -->
     <div class="curtain-screen" id="curtainScreen">
         <div class="curtain-panel curtain-left"></div>
         <div class="curtain-panel curtain-right"></div>
@@ -401,9 +394,8 @@
             </div>
         </div>
 
-        <!-- SECCIÓN DE CONFIRMACIÓN DE ASISTENCIA -->
+        <!-- SECCIÓN DE CONFIRMACIÓN DE ASISTENCIA PROTOCOLARIA SIN TÍTULO REPETIDO -->
         <div class="rsvp-section">
-            <h4>Agradecemos su gentil confirmación</h4>
             <p>Para brindarle una mejor atención y registro en nuestras estaciones científicas, le invitamos a registrar su asistencia.</p>
             <a href="https://forms.gle/" target="_blank" class="btn-rsvp">Agradecemos su gentil confirmación</a>
         </div>
