@@ -36,7 +36,7 @@
             min-height: 100vh;
         }
 
-        /* PANTALLA DE BIENVENIDA CON AMBIENTE CIENTÍFICO */
+        /* PANTALLA DE BIENVENIDA CON EL AFICHE REAL ILUSTRADO */
         .curtain-screen {
             position: fixed;
             top: 0;
@@ -44,36 +44,17 @@
             width: 100vw;
             height: 100vh;
             z-index: 1000;
-            background: linear-gradient(135deg, #040814 0%, #0a1530 60%, #040814 100%);
+            background-color: var(--bg-dark);
+            background-image: url('portada.jpg');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
-            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease 0.3s;
-            overflow: hidden;
-        }
-
-        /* EFECTOS DE ILUMINACIÓN DE LABORATORIO DE FONDO */
-        .curtain-screen::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 15% 85%, rgba(0, 128, 128, 0.25) 0%, transparent 40%),
-                radial-gradient(circle at 85% 15%, rgba(197, 160, 89, 0.2) 0%, transparent 35%);
-            pointer-events: none;
-        }
-
-        #dnaCanvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            opacity: 0.4;
+            padding-bottom: 35px;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease 0.4s;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
         }
 
         .curtain-screen.opened {
@@ -82,114 +63,37 @@
             pointer-events: none;
         }
 
+        /* BOTÓN TRANSPARENTE INTERACTIVO SOBRE EL BOTÓN DEL AFICHE */
         .cover-content {
-            position: relative;
             z-index: 10;
             width: 90%;
-            max-width: 750px;
+            max-width: 320px;
+            height: 60px;
             text-align: center;
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
         }
 
-        .cover-shield {
-            width: 75px;
-            height: auto;
-            margin-bottom: 12px;
-            mix-blend-mode: screen;
-            opacity: 0.95;
-        }
-
-        .cover-univ {
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #ffffff;
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-
-        .cover-faculty {
-            font-size: 0.85rem;
-            letter-spacing: 3.5px;
-            text-transform: uppercase;
-            color: var(--accent-gold);
-            font-weight: 600;
-            margin-bottom: 25px;
-        }
-
-        .cover-divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
+        .btn-trigger {
             width: 100%;
-            margin-bottom: 25px;
-            opacity: 0.6;
-        }
-
-        .cover-divider::before, .cover-divider::after {
-            content: "";
-            height: 1px;
-            width: 120px;
-            background: var(--accent-gold);
-        }
-
-        .cover-divider span {
-            color: var(--accent-gold);
-            font-size: 0.75rem;
-        }
-
-        .cover-career {
-            font-size: 0.85rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: #cbd5e1;
-            margin-bottom: 15px;
-            font-weight: 500;
-        }
-
-        .cover-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            font-weight: 700;
-            line-height: 1.2;
-            margin-bottom: 35px;
-            color: #ffffff;
-        }
-
-        .cover-title span {
-            font-style: italic;
-            color: var(--accent-gold);
-            font-weight: 600;
-        }
-
-        .btn-open {
-            background: rgba(11, 19, 41, 0.9);
+            height: 100%;
+            background: rgba(11, 19, 41, 0.4);
             border: 1.5px solid var(--accent-gold);
             color: #ffffff;
-            padding: 16px 42px;
             font-size: 0.9rem;
             font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
             border-radius: 50px;
             cursor: pointer;
+            backdrop-filter: blur(4px);
             transition: all 0.3s ease;
-            box-shadow: 0 0 25px rgba(197, 160, 89, 0.3);
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.5);
         }
 
-        .btn-open:hover {
+        .btn-trigger:hover {
             background: var(--accent-gold);
             color: #070d1e;
-            box-shadow: 0 0 35px rgba(197, 160, 89, 0.6);
+            box-shadow: 0 0 35px rgba(197, 160, 89, 0.8);
             transform: translateY(-2px);
         }
 
@@ -380,33 +284,19 @@
         }
 
         @media (max-width: 768px) {
-            .cover-title { font-size: 2.1rem; }
             .details-grid { grid-template-columns: 1fr; }
             .header-title { font-size: 1.9rem; }
             .uta-logo { max-width: 130px; }
+            .curtain-screen { background-size: cover; }
         }
     </style>
 </head>
 <body>
 
-    <!-- PANTALLA DE BIENVENIDA CON ANIMACIÓN DE ADN Y ESTÉTICA CIENTÍFICA -->
+    <!-- PANTALLA DE BIENVENIDA CON EL AFICHE REAL Y BOTÓN DE APERTURA -->
     <div class="curtain-screen" id="curtainScreen">
-        <canvas id="dnaCanvas"></canvas>
         <div class="cover-content">
-            <img src="image_2.jpg" alt="Escudo" class="cover-shield">
-            <p class="cover-univ">Universidad Técnica de Ambato</p>
-            <p class="cover-faculty">Facultad de Ciencias de la Salud</p>
-            
-            <div class="cover-divider">
-                <span>◆</span>
-            </div>
-            
-            <p class="cover-career">Carrera de Laboratorio Clínico</p>
-            <h1 class="cover-title">Pasión por la Ciencia,<br>Compromiso con la <span>Vida</span></h1>
-            
-            <button class="btn-open" onclick="openInvitation()">
-                Abrir Invitación &raquo;
-            </button>
+            <button class="btn-trigger" onclick="openInvitation()">ABRIR INVITACIÓN &raquo;</button>
         </div>
     </div>
 
@@ -465,65 +355,6 @@
             document.getElementById('curtainScreen').classList.add('opened');
             document.getElementById('mainInvitation').classList.add('visible');
         }
-
-        // ANIMACIÓN DE ADN EN EL FONDO
-        const canvas = document.getElementById('dnaCanvas');
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        let t = 0;
-        function drawDNA() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            const centerX = canvas.width / 2;
-            const numNodes = 40;
-            const spacing = canvas.height / numNodes;
-            const amplitude = Math.min(canvas.width * 0.35, 250);
-
-            for (let i = 0; i < numNodes; i++) {
-                const y = i * spacing + (spacing / 2);
-                const angle = t + (i * 0.15);
-
-                const x1 = centerX + Math.sin(angle) * amplitude;
-                const x2 = centerX - Math.sin(angle) * amplitude;
-
-                const z1 = Math.cos(angle);
-                const z2 = -Math.cos(angle);
-
-                const radius1 = 2.5 + z1 * 1.2;
-                const radius2 = 2.5 + z2 * 1.2;
-
-                // Conexiones de ADN
-                ctx.beginPath();
-                ctx.moveTo(x1, y);
-                ctx.lineTo(x2, y);
-                ctx.strokeStyle = `rgba(20, 184, 166, ${0.08 + Math.abs(z1) * 0.08})`;
-                ctx.lineWidth = 1;
-                ctx.stroke();
-
-                // Nodos brillantes color turquesa y dorado
-                ctx.beginPath();
-                ctx.arc(x1, y, Math.max(0.5, radius1), 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(20, 184, 166, ${0.3 + z1 * 0.3})`;
-                ctx.fill();
-
-                ctx.beginPath();
-                ctx.arc(x2, y, Math.max(0.5, radius2), 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(197, 160, 89, ${0.3 + z2 * 0.3})`;
-                ctx.fill();
-            }
-
-            t += 0.012;
-            requestAnimationFrame(drawDNA);
-        }
-
-        drawDNA();
     </script>
 </body>
 </html>
