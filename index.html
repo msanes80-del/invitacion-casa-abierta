@@ -36,7 +36,7 @@
             min-height: 100vh;
         }
 
-        /* PANTALLA DE BIENVENIDA CON TU NUEVA IMAGEN HORIZONTAL DE FONDO */
+        /* ESTRUCTURA DEL TELÓN QUE SE ABRE DESDE EL CENTRO HACIA AFUERA */
         .curtain-screen {
             position: fixed;
             top: 0;
@@ -44,25 +44,54 @@
             width: 100vw;
             height: 100vh;
             z-index: 1000;
-            background-color: var(--bg-dark);
-            background-image: url('portada.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease 0.4s;
+            pointer-events: auto;
+            transition: opacity 1s ease 1.8s;
+        }
+
+        .curtain-panel {
+            position: absolute;
+            top: 0;
+            width: 50vw;
+            height: 100vh;
+            background-color: var(--bg-dark);
+            background-image: url('portada.png');
+            background-size: 100vw 100vh;
+            background-repeat: no-repeat;
+            /* Transición pausada y elegante de 2.2 segundos */
+            transition: transform 2.2s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 1;
+        }
+
+        .curtain-left {
+            left: 0;
+            background-position: left center;
+        }
+
+        .curtain-right {
+            right: 0;
+            background-position: right center;
+        }
+
+        .curtain-screen.opened .curtain-left {
+            transform: translateX(-100%);
+        }
+
+        .curtain-screen.opened .curtain-right {
+            transform: translateX(100%);
         }
 
         .curtain-screen.opened {
-            transform: translateY(-100%);
             opacity: 0;
             pointer-events: none;
         }
 
-        /* CONTENIDO DE TEXTOS Y BOTÓN PERFECTAMENTE CENTRADOS EN EL ESPACIO LIBRE */
+        /* CONTENIDO CENTRADO DEL TELÓN */
         .cover-content {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             z-index: 10;
             width: 90%;
             max-width: 800px;
@@ -72,18 +101,26 @@
             flex-direction: column;
             align-items: center;
             padding: 20px;
+            transition: opacity 0.8s ease;
         }
 
+        .curtain-screen.opened .cover-content {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* CORRECCIÓN DEL ESCUDO SIN FONDO BLANCO CUADRADO */
         .cover-shield {
-            width: 70px;
+            max-width: 120px;
             height: auto;
-            margin-bottom: 10px;
-            mix-blend-mode: screen;
+            margin-bottom: 12px;
+            mix-blend-mode: multiply;
+            filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.5));
             opacity: 0.95;
         }
 
         .cover-univ {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             letter-spacing: 3px;
             text-transform: uppercase;
             color: #ffffff;
@@ -92,7 +129,7 @@
         }
 
         .cover-faculty {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             letter-spacing: 3.5px;
             text-transform: uppercase;
             color: var(--accent-gold);
@@ -123,7 +160,7 @@
         }
 
         .cover-career {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: #cbd5e1;
@@ -133,12 +170,12 @@
 
         .cover-title {
             font-family: 'Playfair Display', serif;
-            font-size: 2.7rem;
+            font-size: 2.8rem;
             font-weight: 700;
             line-height: 1.25;
-            margin-bottom: 30px;
+            margin-bottom: 32px;
             color: #ffffff;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
         }
 
         .cover-title span {
@@ -151,8 +188,8 @@
             background: rgba(11, 19, 41, 0.85);
             border: 1.5px solid var(--accent-gold);
             color: #ffffff;
-            padding: 15px 40px;
-            font-size: 0.9rem;
+            padding: 16px 44px;
+            font-size: 0.92rem;
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
             letter-spacing: 2px;
@@ -181,7 +218,7 @@
             padding: 60px 24px;
             opacity: 0;
             transform: translateY(30px);
-            transition: all 1s ease 0.5s;
+            transition: all 1.2s ease 0.6s;
         }
 
         .main-invitation.visible {
@@ -308,7 +345,7 @@
             border-left-color: var(--accent-gold);
         }
 
-        /* SECCIÓN DE CONFIRMACIÓN DE ASISTENCIA */
+        /* SECCIÓN DE CONFIRMACIÓN DE ASISTENCIA PROTOCOLARIA */
         .rsvp-section {
             text-align: center;
             background: #f8fafc;
@@ -365,15 +402,19 @@
             .details-grid { grid-template-columns: 1fr; }
             .header-title { font-size: 1.9rem; }
             .uta-logo { max-width: 130px; }
+            .curtain-panel { background-size: cover; }
         }
     </style>
 </head>
 <body>
 
-    <!-- PANTALLA DE BIENVENIDA CON TU NUEVA PORTADA Y TEXTOS NÍTIDOS -->
+    <!-- TELÓN DE APERTURA DESDE EL CENTRO HACIA AFUERA -->
     <div class="curtain-screen" id="curtainScreen">
+        <div class="curtain-panel curtain-left"></div>
+        <div class="curtain-panel curtain-right"></div>
+        
         <div class="cover-content">
-            <img src="image_2.jpg" alt="Escudo" class="cover-shield">
+            <img src="image_2.jpg" alt="Escudo UTA" class="cover-shield">
             <p class="cover-univ">Universidad Técnica de Ambato</p>
             <p class="cover-faculty">Facultad de Ciencias de la Salud</p>
             
@@ -448,4 +489,3 @@
     </script>
 </body>
 </html>
-
