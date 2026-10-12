@@ -36,7 +36,7 @@
             min-height: 100vh;
         }
 
-        /* PANTALLA DE BIENVENIDA CON IMAGEN NÍTIDA EN ALTA CALIDAD */
+        /* PANTALLA DE BIENVENIDA CON TU NUEVA IMAGEN HORIZONTAL DE FONDO */
         .curtain-screen {
             position: fixed;
             top: 0;
@@ -44,11 +44,14 @@
             width: 100vw;
             height: 100vh;
             z-index: 1000;
-            background-color: #040814;
+            background-color: var(--bg-dark);
+            background-image: url('portada.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow-y: auto;
             transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease 0.4s;
         }
 
@@ -58,38 +61,117 @@
             pointer-events: none;
         }
 
-        /* CONTENEDOR DEL PÓSTER NÍTIDO */
-        .poster-wrapper {
-            position: relative;
-            height: 94vh;
-            max-width: 100%;
+        /* CONTENIDO DE TEXTOS Y BOTÓN PERFECTAMENTE CENTRADOS EN EL ESPACIO LIBRE */
+        .cover-content {
+            z-index: 10;
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .cover-shield {
+            width: 70px;
+            height: auto;
+            margin-bottom: 10px;
+            mix-blend-mode: screen;
+            opacity: 0.95;
+        }
+
+        .cover-univ {
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .cover-faculty {
+            font-size: 0.85rem;
+            letter-spacing: 3.5px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .cover-divider {
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 15px;
+            width: 100%;
+            margin-bottom: 18px;
+            opacity: 0.7;
         }
 
-        .poster-img {
-            height: 100%;
-            width: auto;
-            display: block;
-            border-radius: 8px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+        .cover-divider::before, .cover-divider::after {
+            content: "";
+            height: 1px;
+            width: 100px;
+            background: var(--accent-gold);
         }
 
-        /* BOTÓN INVISIBLE PERFECTAMENTE ALINEADO SOBRE EL BOTÓN DORADO DE LA IMAGEN */
-        .btn-trigger {
-            position: absolute;
-            bottom: 4.5%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 32%;
-            max-width: 280px;
-            height: 7.5%;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            outline: none;
+        .cover-divider span {
+            color: var(--accent-gold);
+            font-size: 0.7rem;
+        }
+
+        .cover-career {
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #cbd5e1;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .cover-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.7rem;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-bottom: 30px;
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .cover-title span {
+            font-style: italic;
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        .btn-open {
+            background: rgba(11, 19, 41, 0.85);
+            border: 1.5px solid var(--accent-gold);
+            color: #ffffff;
+            padding: 15px 40px;
+            font-size: 0.9rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 25px rgba(197, 160, 89, 0.4);
+            backdrop-filter: blur(5px);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-open:hover {
+            background: var(--accent-gold);
+            color: #070d1e;
+            box-shadow: 0 0 35px rgba(197, 160, 89, 0.7);
+            transform: translateY(-2px);
         }
 
         /* CONTENIDO PRINCIPAL DE LA INVITACIÓN */
@@ -279,21 +361,32 @@
         }
 
         @media (max-width: 768px) {
+            .cover-title { font-size: 2rem; }
             .details-grid { grid-template-columns: 1fr; }
             .header-title { font-size: 1.9rem; }
             .uta-logo { max-width: 130px; }
-            .poster-img { width: 100%; height: auto; }
-            .btn-trigger { width: 60%; height: 6%; bottom: 5%; }
         }
     </style>
 </head>
 <body>
 
-    <!-- PANTALLA DE BIENVENIDA CON EL AFICHE EN ALTA NITIDEZ -->
+    <!-- PANTALLA DE BIENVENIDA CON TU NUEVA PORTADA Y TEXTOS NÍTIDOS -->
     <div class="curtain-screen" id="curtainScreen">
-        <div class="poster-wrapper">
-            <img src="portada.jpg" alt="Casa Abierta 2026 - Portada" class="poster-img">
-            <button class="btn-trigger" onclick="openInvitation()" aria-label="Abrir Invitación"></button>
+        <div class="cover-content">
+            <img src="image_2.jpg" alt="Escudo" class="cover-shield">
+            <p class="cover-univ">Universidad Técnica de Ambato</p>
+            <p class="cover-faculty">Facultad de Ciencias de la Salud</p>
+            
+            <div class="cover-divider">
+                <span>◆</span>
+            </div>
+            
+            <p class="cover-career">Carrera de Laboratorio Clínico</p>
+            <h1 class="cover-title">Pasión por la Ciencia,<br>Compromiso con la <span>Vida</span></h1>
+            
+            <button class="btn-open" onclick="openInvitation()">
+                Abrir Invitación &raquo;
+            </button>
         </div>
     </div>
 
