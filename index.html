@@ -36,7 +36,7 @@
             min-height: 100vh;
         }
 
-        /* PANTALLA DE BIENVENIDA CON TU PORTADA FIJA Y TELÓN QUE SE ABRE */
+        /* PANTALLA DE BIENVENIDA */
         .curtain-screen {
             position: fixed;
             top: 0;
@@ -45,15 +45,28 @@
             height: 100vh;
             z-index: 1000;
             background-color: var(--bg-dark);
-            background-image: url('portada.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
             pointer-events: auto;
+            transition: opacity 0.8s ease 1.6s;
+        }
+
+        .curtain-screen.opened {
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        /* IMAGEN DE PORTADA ESTÁTICA DE FONDO */
+        .bg-cover-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: 1;
         }
 
         /* CORTINAS DEL TELÓN (SE ABREN DESDE EL CENTRO HACIA AFUERA) */
@@ -86,12 +99,6 @@
 
         .curtain-screen.opened .shutter-right {
             transform: translateX(100%);
-        }
-
-        .curtain-screen.opened {
-            pointer-events: none;
-            transition: opacity 0.8s ease 1.6s;
-            opacity: 0;
         }
 
         /* CONTENIDO Y TEXTOS CENTRADOS EN LA PORTADA */
@@ -416,11 +423,14 @@
 
     <!-- PANTALLA DE BIENVENIDA -->
     <div class="curtain-screen" id="curtainScreen">
-        <!-- Cortinas que se abren desde el centro hacia afuera -->
+        <!-- Imagen de fondo portada.png cargada nativamente para evitar fallos -->
+        <img src="portada.png" alt="Portada Casa Abierta 2026" class="bg-cover-img">
+
+        <!-- Cortinas del telón que cubren la portada y se abren hacia afuera -->
         <div class="shutter shutter-left"></div>
         <div class="shutter shutter-right"></div>
         
-        <!-- Contenido y textos encima de tu portada -->
+        <!-- Contenido y textos encima -->
         <div class="cover-content">
             <img src="image_2.jpg" alt="Escudo UTA" class="cover-shield">
             <p class="cover-univ">Universidad Técnica de Ambato</p>
