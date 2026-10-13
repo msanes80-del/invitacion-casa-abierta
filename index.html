@@ -115,15 +115,14 @@
             pointer-events: none;
         }
 
-        /* ESCUDO DE LA PORTADA CON TRAZOS BLANCOS PUROS Y SIN CUADRO */
+        /* ESCUDO DE LA PORTADA NÍTIDO Y CON BUEN TAMAÑO */
         .cover-shield {
-            width: 105px;
+            width: 140px;
             height: auto;
             margin-bottom: 15px;
             display: block;
-            filter: brightness(0) invert(1);
-            opacity: 0.95;
-            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+            mix-blend-mode: screen; /* Elimina el fondo blanco y deja las líneas claras */
+            filter: drop-shadow(0 2px 10px rgba(0,0,0,0.6));
         }
 
         .cover-univ {
@@ -415,7 +414,7 @@
 </head>
 <body>
 
-    <!-- PANTALLA DE BIENVENIDA CON TELÓN Y ESCUDO BLANCO INTEGRADO -->
+    <!-- PANTALLA DE BIENVENIDA CON TELÓN Y ESCUDO INTEGRADO -->
     <div class="curtain-wrapper" id="curtainScreen">
         <div class="curtain-panel-left"></div>
         <div class="curtain-panel-right"></div>
