@@ -115,24 +115,15 @@
             pointer-events: none;
         }
 
-        /* CONTENEDOR CON FONDO BLANCO SUAVE TRANSLÚCIDO PARA DESTACAR EL ESCUDO OSCURO */
-        .shield-container-cover {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 10px 14px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(197, 160, 89, 0.4);
-            border: 1.5px solid var(--accent-gold);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(5px);
-        }
-
+        /* ESCUDO DE LA PORTADA CON TRAZOS BLANCOS PUROS Y SIN CUADRO */
         .cover-shield {
-            width: 85px;
+            width: 105px;
             height: auto;
+            margin-bottom: 15px;
             display: block;
+            filter: brightness(0) invert(1);
+            opacity: 0.95;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
         }
 
         .cover-univ {
@@ -424,15 +415,13 @@
 </head>
 <body>
 
-    <!-- PANTALLA DE BIENVENIDA CON TELÓN Y ESCUDO AJUSTADO -->
+    <!-- PANTALLA DE BIENVENIDA CON TELÓN Y ESCUDO BLANCO INTEGRADO -->
     <div class="curtain-wrapper" id="curtainScreen">
         <div class="curtain-panel-left"></div>
         <div class="curtain-panel-right"></div>
         
         <div class="cover-content">
-            <div class="shield-container-cover">
-                <img src="image_2.jpg" alt="Escudo UTA" class="cover-shield">
-            </div>
+            <img src="image_2.jpg" alt="Escudo UTA" class="cover-shield">
             
             <p class="cover-univ">Universidad Técnica de Ambato</p>
             <p class="cover-faculty">Facultad de Ciencias de la Salud</p>
